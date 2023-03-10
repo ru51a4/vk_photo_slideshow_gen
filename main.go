@@ -153,11 +153,11 @@ func main() {
                     app.stage.addChild(q);
                 }
             }
+			setTimeout(() => {
+				render(width, height)
+			}, 2000);
         });
         app.stage.addChild(sprite);
-		setTimeout(() => {
-			render(width, height)
-		}, 2000);
 	}
     render();
 
