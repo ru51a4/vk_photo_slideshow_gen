@@ -41,10 +41,10 @@ type Zaeb struct {
 
 func (Generator Generator) GetPhotos(id int) []string {
 	var res []string
-	var Zaeb Zaeb
+	var ZaebZaeb Zaeb
 	i := 0
-	Generator.Init().CallMethod("wall.get", vk.RequestParams{"owner_id": "-" + strconv.Itoa(id)}, &Zaeb)
-	for _, item := range Zaeb.Items {
+	Generator.Init().CallMethod("wall.get", vk.RequestParams{"owner_id": "-" + strconv.Itoa(id)}, &ZaebZaeb)
+	for _, item := range ZaebZaeb.Items {
 		for _, attach := range item.Attachments {
 			if len(attach.Photo.Sizes) > 0 {
 				res = append(res, attach.Photo.Sizes[len(attach.Photo.Sizes)-1].Url)
@@ -56,6 +56,7 @@ func (Generator Generator) GetPhotos(id int) []string {
 	var wg sync.WaitGroup
 
 	deep = func(i int) {
+		var Zaeb Zaeb
 		defer wg.Done()
 		Generator.Init().CallMethod("wall.get", vk.RequestParams{"owner_id": "-" + strconv.Itoa(id), "offset": i, "count": 100}, &Zaeb)
 		for _, item := range Zaeb.Items {
@@ -65,12 +66,12 @@ func (Generator Generator) GetPhotos(id int) []string {
 				}
 			}
 		}
-		fmt.Println(strconv.Itoa(i) + "/" + strconv.Itoa(Zaeb.Count))
+		fmt.Println(strconv.Itoa(i) + "/" + strconv.Itoa(ZaebZaeb.Count))
 	}
 
-	for i < Zaeb.Count {
+	for i < ZaebZaeb.Count {
 		for j := 0; j < 10; j++ {
-			if i < Zaeb.Count {
+			if i < ZaebZaeb.Count {
 				wg.Add(1)
 				i += 100
 				go deep(i)
