@@ -103,7 +103,6 @@ func main() {
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Document</title>
 		<script src="https://pixijs.download/release/pixi.js"></script>
 	
 	</head>
@@ -139,6 +138,7 @@ func main() {
         images.splice(currentId, 1);
 		let cc = counter
         let sprite = PIXI.Sprite.from(img);
+		sprite.x = 9999
         sprite.texture.baseTexture.on('loaded', () => {
 			if(counter !=cc){
 				return

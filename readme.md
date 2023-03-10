@@ -1,1 +1,1 @@
-example http://curious-potato.surge.sh/
+example http://typical-bottle.surge.sh/
