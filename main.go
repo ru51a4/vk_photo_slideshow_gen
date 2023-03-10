@@ -103,17 +103,16 @@ func main() {
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="https://pixijs.download/release/pixi.js"></script>
 	
 	</head>
 	
 	<body style="width: 100vw; margin:0px; height: 100vh; overflow: hidden;">
-	
+		<canvas></canvas>
+
 	</body>
 	<script>
-		let app = new PIXI.Application({ width: document.body.clientWidth, height: document.body.clientHeight });
-		document.body.appendChild(app.view);
-	
+		document.querySelector("canvas").width = document.body.clientWidth;
+		document.querySelector("canvas").height = document.body.clientHeight;
 	
 		function getRandomInt(max) {
 			return Math.floor(Math.random() * Math.floor(max));
@@ -127,36 +126,37 @@ func main() {
 
 	html += `);
     let images = JSON.parse(JSON.stringify(_images));
-	let counter = 0;
-    let render = (width, height) => {
-        counter++
-		let currentId = getRandomInt(images.length - 1);
+	let render = () => {
+    	let currentId = getRandomInt(images.length - 1);
         if (images.length < 2) {
             images = JSON.parse(JSON.stringify(_images))
         }
         const img = images[currentId];
         images.splice(currentId, 1);
-		let cc = counter
-        let sprite = PIXI.Sprite.from(img);
-		sprite.x = 9999
-        sprite.texture.baseTexture.on('loaded', () => {
-			if(counter !=cc){
-				return
-			}
-            let width = sprite.width
-            let height = sprite.height;
-            for (let i = 0; i <= 20; i++) {
+		let canvas = document.querySelector("canvas");
+		let ctx = canvas.getContext("2d"); 
+		const drawImage = (image, width, height) => {
+			console.log(width)
+			ctx.drawImage(image, width, height)
+		}
+		
+
+		var imgC = new Image();
+
+		imgC.addEventListener('load', () => {
+			var width = imgC.naturalWidth; 
+			var height = imgC.naturalHeight;
+			for (let i = 0; i <= 20; i++) {
                 for (let j = 0; j <= 20; j++) {
-                    let q = PIXI.Sprite.from(img);
-                    q.x = i * width
-                    q.y = j * height
-                    app.stage.addChild(q);
-                }
-            }
-        });
-        app.stage.addChild(sprite);
+                    drawImage(imgC, Number(width)*i, Number(height)*j)
+				}
+			}
+		}, false);
+
+		imgC.src = img;
+
 		setTimeout(() => {
-			render(width, height)
+			render()
 		}, 2000);
 	}
     render();
