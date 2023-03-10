@@ -136,7 +136,6 @@ func main() {
 		let canvas = document.querySelector("canvas");
 		let ctx = canvas.getContext("2d"); 
 		const drawImage = (image, width, height) => {
-			console.log(width)
 			ctx.drawImage(image, width, height)
 		}
 		
