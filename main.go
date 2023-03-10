@@ -128,16 +128,21 @@ func main() {
 
 	html += `);
     let images = JSON.parse(JSON.stringify(_images));
+	let counter = 0;
     let render = (width, height) => {
-        let currentId = getRandomInt(images.length - 1);
+        counter++
+		let currentId = getRandomInt(images.length - 1);
         if (images.length < 2) {
             images = JSON.parse(JSON.stringify(_images))
         }
         const img = images[currentId];
         images.splice(currentId, 1);
-
+		let cc = counter
         let sprite = PIXI.Sprite.from(img);
-        sprite.texture.baseTexture.on('loaded', function () {
+        sprite.texture.baseTexture.on('loaded', () => {
+			if(counter !=cc){
+				return
+			}
             let width = sprite.width
             let height = sprite.height;
             for (let i = 0; i <= 20; i++) {
