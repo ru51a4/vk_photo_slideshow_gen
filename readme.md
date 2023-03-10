@@ -1,1 +1,1 @@
-example http://knowledgeable-selection.surge.sh/
+example http://curious-potato.surge.sh/
