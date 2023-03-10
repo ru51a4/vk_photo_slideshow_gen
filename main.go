@@ -54,6 +54,7 @@ func (Generator Generator) GetPhotos(id int) []string {
 	var deep func(id int)
 
 	var wg sync.WaitGroup
+	var rwm sync.RWMutex
 
 	deep = func(i int) {
 		var Zaeb Zaeb
@@ -62,7 +63,9 @@ func (Generator Generator) GetPhotos(id int) []string {
 		for _, item := range Zaeb.Items {
 			for _, attach := range item.Attachments {
 				if len(attach.Photo.Sizes) > 0 {
+					rwm.Lock()
 					res = append(res, attach.Photo.Sizes[len(attach.Photo.Sizes)-1].Url)
+					rwm.Unlock()
 				}
 			}
 		}
