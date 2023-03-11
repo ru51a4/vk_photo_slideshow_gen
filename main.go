@@ -154,13 +154,12 @@ func main() {
                     drawImage(imgC, Number(width)*i, Number(height)*j)
 				}
 			}
+			setTimeout(() => {
+				render()
+			}, 2000);
 		}, false);
 
 		imgC.src = img;
-
-		setTimeout(() => {
-			render()
-		}, 2000);
 	}
     render();
 
