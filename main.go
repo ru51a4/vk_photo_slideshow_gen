@@ -129,9 +129,9 @@ func main() {
 	html += "`"
 
 	html += `);
-	images = JSON.parse(localStorage.getItem('images'));
-	if(!images){
-		let images = JSON.parse(JSON.stringify(_images));
+	let images = JSON.parse(localStorage.getItem('images'));
+	if(images === null){
+		images = JSON.parse(JSON.stringify(_images));
 	}
 	localStorage.setItem('images', JSON.stringify(images));
 	let render = () => {
