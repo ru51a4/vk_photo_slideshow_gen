@@ -129,8 +129,13 @@ func main() {
 	html += "`"
 
 	html += `);
-    let images = JSON.parse(JSON.stringify(_images));
+	images = JSON.parse(localStorage.getItem('images'));
+	if(!images){
+		let images = JSON.parse(JSON.stringify(_images));
+	}
+	localStorage.setItem('images', JSON.stringify(images));
 	let render = () => {
+		images = JSON.parse(localStorage.getItem('images'));
     	let currentId = getRandomInt(images.length - 1);
         if (images.length < 2) {
             images = JSON.parse(JSON.stringify(_images))
@@ -154,6 +159,7 @@ func main() {
                     drawImage(imgC, Number(width)*i, Number(height)*j)
 				}
 			}
+			localStorage.setItem('images', JSON.stringify(images));
 			setTimeout(() => {
 				render()
 			}, 2000);
