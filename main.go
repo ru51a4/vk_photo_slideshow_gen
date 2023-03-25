@@ -51,7 +51,7 @@ func (Generator Generator) GetPhotos(id int) []string {
 			}
 		}
 	}
-	var deep func(id int)
+	var deep func(i int)
 
 	var wg sync.WaitGroup
 	var rwm sync.RWMutex
